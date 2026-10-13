@@ -9,17 +9,10 @@
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<meta name="description" content="Truck suspension diagnostics and repair: axles, steering and chassis components, with the cost agreed before the repair.">
 		<title>OKKO | Suspension Diagnostics and Repair</title>
-		<link rel="modulepreload" crossorigin href="./js/common.min.js?v=1791908288600">
-		<script type="module" crossorigin="" src="./js/main.min.js?v=1791908288600"></script>
-		<script type="module" crossorigin="" src="./js/faq.min.js?v=1791908288600"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/main.min.css?v=1791908288600">
-		<link rel="stylesheet" crossorigin="" href="./css/faq.min.css?v=1791908288600">
-		<link rel="stylesheet" crossorigin="" href="./css/welding.min.css?v=1791908288600">
-		<link rel="stylesheet" crossorigin="" href="./css/servicebody.min.css?v=1791908288600">
-		<link rel="stylesheet" crossorigin="" href="./css/hero.min.css?v=1791908288600">
-		<link rel="stylesheet" crossorigin="" href="./css/breakdown.min.css?v=1791908288600">
-		<link rel="stylesheet" crossorigin="" href="./css/brands.min.css?v=1791908288600">
-		<link rel="stylesheet" crossorigin="" href="./css/assist.min.css?v=1791908288600">
+		<link rel="modulepreload" crossorigin href="./js/common.min.js">
+		<script type="module" crossorigin="" src="./js/main.min.js?v=1791912274201"></script>
+		<script type="module" crossorigin="" src="./js/faq.min.js?v=1791912274201"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/style.min.css?v=1791912274201">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -314,7 +307,7 @@
 													<input class="request__input" type="text" name="company" placeholder="Company" autocomplete="organization">
 												</label>
 												<label class="request__field request__field--select">
-													<select class="request__input" name="branch" required>
+													<select class="request__input" name="branch" aria-label="*Branch" required>
 														<option value="" selected disabled hidden>*Branch</option>
 														<option value="perl">OKKO-Service Perl</option>
 														<option value="second" disabled>Second branch (coming soon)</option>
@@ -324,7 +317,7 @@
 													</svg>
 												</label>
 												<label class="request__field request__field--select request__field--wide">
-													<select class="request__input" name="service" required>
+													<select class="request__input" name="service" aria-label="*Select a service" required>
 														<option value="" selected disabled hidden>*Select a service</option>
 														<option value="electronics">Electronics Repair and Programming</option>
 														<option value="diagnostics">Computer Diagnostics</option>

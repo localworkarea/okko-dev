@@ -79,7 +79,7 @@ var __vitePreload = function preload(baseModule, deps, importerUrl) {
 };
 //#endregion
 //#region src/components/custom/heromap/heromap.js
-loadDesktopEffect(() => __vitePreload(() => import("./_parallax.min.js"), [], import.meta.url));
+loadDesktopEffect(() => __vitePreload(() => import("./heromap-parallax.min.js"), [], import.meta.url));
 var closeDelay = 200;
 var fadeTime = 300;
 var show = (el) => {

@@ -1,4 +1,4 @@
-//#region src/components/custom/heromap/_parallax.js
+//#region src/components/custom/heromap/heromap-parallax.js
 var motionAllowed = window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
 var strength = 30;
 var smoothing = .05;
