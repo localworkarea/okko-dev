@@ -1,0 +1,1 @@
+.assist{display:grid;gap:.5rem;padding-block:var(--section-py);background-color:var(--color-white)}.assist>.breakdown,.assist>.request{padding-block:0}@media(min-width:48.06125em){.assist>.breakdown{order:1}.assist>.request{order:2}}
