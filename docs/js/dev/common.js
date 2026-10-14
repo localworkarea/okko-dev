@@ -108,6 +108,9 @@ var bodyLock = (delay = 500) => {
 		}, delay);
 	}
 };
+function uniqArray(array) {
+	return array.filter((item, index, self) => self.indexOf(item) === index);
+}
 function dataMediaQueries(array, dataSetValue) {
 	const media = Array.from(array).map((item) => {
 		const value = item.dataset?.[dataSetValue];
@@ -139,4 +142,4 @@ function dataMediaQueries(array, dataSetValue) {
 //#region src/js/app.js
 addLoadedAttr();
 //#endregion
-export { bodyUnlock as a, slideDown as c, bodyLockToggle as i, slideToggle as l, bodyLock as n, dataMediaQueries as o, bodyLockStatus as r, loadDesktopEffect as s, attLog as t, slideUp as u };
+export { bodyUnlock as a, slideDown as c, uniqArray as d, bodyLockToggle as i, slideToggle as l, bodyLock as n, dataMediaQueries as o, bodyLockStatus as r, loadDesktopEffect as s, attLog as t, slideUp as u };

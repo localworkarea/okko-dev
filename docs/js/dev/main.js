@@ -1,4 +1,4 @@
-import { c as slideDown, i as bodyLockToggle, r as bodyLockStatus, t as attLog, u as slideUp } from "./common.min.js";
+import { c as slideDown, d as uniqArray, i as bodyLockToggle, r as bodyLockStatus, t as attLog, u as slideUp } from "./common.min.js";
 //#region \0vite/modulepreload-polyfill.js
 (function polyfill() {
 	const relList = document.createElement("link").relList;
@@ -42,8 +42,7 @@ function menuToggle() {
 function menuInit() {
 	document.addEventListener("click", function(e) {
 		if (e.target.closest("[data-att-menu]")) return menuToggle();
-		if (!isOpen() || e.defaultPrevented) return;
-		if (e.target.classList.contains("menu") || e.target.closest(".menu__body a[href]")) menuToggle();
+		if (isOpen() && e.target.classList.contains("menu")) menuToggle();
 	});
 	document.addEventListener("keydown", (e) => {
 		if (e.key === "Escape" && isOpen()) menuToggle();
@@ -184,4 +183,86 @@ function formInit() {
 	formSubmit();
 }
 document.querySelector("[data-att-form]") && window.addEventListener("load", formInit);
+//#endregion
+//#region src/components/effects/watcher/watcher.js
+var ScrollWatcher = class {
+	constructor(props) {
+		let defaultConfig = { logging: true };
+		this.config = Object.assign(defaultConfig, props);
+		this.observer;
+		!document.documentElement.hasAttribute("data-att-watch") && this.scrollWatcherRun();
+	}
+	scrollWatcherUpdate() {
+		this.scrollWatcherRun();
+	}
+	scrollWatcherRun() {
+		document.documentElement.setAttribute("data-att-watch", "");
+		this.scrollWatcherConstructor(document.querySelectorAll("[data-att-watcher]"));
+	}
+	scrollWatcherConstructor(items) {
+		if (items.length) uniqArray(Array.from(items).map(function(item) {
+			if (item.dataset.attWatcher === "navigator" && !item.dataset.attWatcherThreshold) {
+				let valueOfThreshold;
+				if (item.clientHeight > 2) {
+					valueOfThreshold = window.innerHeight / 2 / (item.clientHeight - 1);
+					if (valueOfThreshold > 1) valueOfThreshold = 1;
+				} else valueOfThreshold = 1;
+				item.setAttribute("data-att-watcher-threshold", valueOfThreshold.toFixed(2));
+			}
+			return `${item.dataset.attWatcherRoot ? item.dataset.attWatcherRoot : null}|${item.dataset.attWatcherMargin ? item.dataset.attWatcherMargin : "0px"}|${item.dataset.attWatcherThreshold ? item.dataset.attWatcherThreshold : 0}`;
+		})).forEach((uniqParam) => {
+			let uniqParamArray = uniqParam.split("|");
+			let paramsWatch = {
+				root: uniqParamArray[0],
+				margin: uniqParamArray[1],
+				threshold: uniqParamArray[2]
+			};
+			let groupItems = Array.from(items).filter(function(item) {
+				let watchRoot = item.dataset.attWatcherRoot ? item.dataset.attWatcherRoot : null;
+				let watchMargin = item.dataset.attWatcherMargin ? item.dataset.attWatcherMargin : "0px";
+				let watchThreshold = item.dataset.attWatcherThreshold ? item.dataset.attWatcherThreshold : 0;
+				if (String(watchRoot) === paramsWatch.root && String(watchMargin) === paramsWatch.margin && String(watchThreshold) === paramsWatch.threshold) return item;
+			});
+			let configWatcher = this.getScrollWatcherConfig(paramsWatch);
+			this.scrollWatcherInit(groupItems, configWatcher);
+		});
+	}
+	getScrollWatcherConfig(paramsWatch) {
+		let configWatcher = {};
+		if (document.querySelector(paramsWatch.root)) configWatcher.root = document.querySelector(paramsWatch.root);
+		configWatcher.rootMargin = paramsWatch.margin;
+		if (paramsWatch.margin.indexOf("px") < 0 && paramsWatch.margin.indexOf("%") < 0) return;
+		if (paramsWatch.threshold === "prx") {
+			paramsWatch.threshold = [];
+			for (let i = 0; i <= 1; i += .005) paramsWatch.threshold.push(i);
+		} else paramsWatch.threshold = paramsWatch.threshold.split(",");
+		configWatcher.threshold = paramsWatch.threshold;
+		return configWatcher;
+	}
+	scrollWatcherCreate(configWatcher) {
+		this.observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach((entry) => {
+				this.scrollWatcherCallback(entry, observer);
+			});
+		}, configWatcher);
+	}
+	scrollWatcherInit(items, configWatcher) {
+		this.scrollWatcherCreate(configWatcher);
+		items.forEach((item) => this.observer.observe(item));
+	}
+	scrollWatcherIntersecting(entry, targetElement) {
+		if (entry.isIntersecting) !targetElement.classList.contains("--view") && targetElement.classList.add("--view");
+		else targetElement.classList.contains("--view") && targetElement.classList.remove("--view");
+	}
+	scrollWatcherOff(targetElement, observer) {
+		observer.unobserve(targetElement);
+	}
+	scrollWatcherCallback(entry, observer) {
+		const targetElement = entry.target;
+		this.scrollWatcherIntersecting(entry, targetElement);
+		targetElement.hasAttribute("data-att-watcher-once") && entry.isIntersecting && this.scrollWatcherOff(targetElement, observer);
+		document.dispatchEvent(new CustomEvent("watcherCallback", { detail: { entry } }));
+	}
+};
+document.querySelector("[data-att-watcher]") && window.addEventListener("load", () => new ScrollWatcher({}));
 //#endregion
