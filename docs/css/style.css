@@ -198,6 +198,14 @@ body {
   font-weight: 500;
 }
 
+:is(h1, h2, h3):is(:lang(de), :lang(lt)) {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: auto;
+  hyphenate-limit-chars: 8 3 3;
+  hyphenate-character: "";
+}
+
 .text {
   font-size: var(--fz-body);
   font-weight: 500;

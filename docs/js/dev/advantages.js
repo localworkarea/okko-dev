@@ -1,8 +1,3 @@
-import "./main.min.js";
-import "./common.min.js";
-/* empty css              */
-/* empty css           */
-/* empty css             */
 import { t as __vitePreload } from "./heromap.min.js";
 //#region src/components/layout/slider/slider.js
 var sliders = document.querySelectorAll("[data-att-slider]");
