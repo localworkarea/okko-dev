@@ -624,7 +624,6 @@ body {
   gap: 0.5rem;
 }
 .footer__card {
-  margin-bottom: 1.25rem;
   padding: 2.625rem 2.25rem;
   border-radius: var(--radius-card);
   background-color: var(--color-white);
@@ -908,7 +907,7 @@ body {
     appearance: base-select;
     margin-top: 0.25rem;
     padding-block: 0.5rem;
-    border: none;
+    border: 0.0625rem solid var(--color-lavender);
     border-radius: var(--radius-textarea);
     background-color: var(--color-white-pure);
     box-shadow: var(--shadow-card);
@@ -943,6 +942,7 @@ body {
 .request__submit .icon {
   width: 1.3125rem;
   height: 0.375rem;
+  transition: transform 0.3s ease;
 }
 .request__consent {
   display: flex;
@@ -1065,6 +1065,9 @@ body {
 }
 .hero__text {
   font-size: var(--fz-body);
+}
+.hero__button-word {
+  display: none;
 }
 .hero__actions {
   display: grid;
@@ -1952,13 +1955,6 @@ body {
 .reviews__quote {
   margin: 0;
 }
-.reviews__comment {
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 6;
-  line-clamp: 6;
-}
 .reviews__nav {
   display: flex;
   justify-content: center;
@@ -2416,11 +2412,11 @@ body {
     min-height: 3rem;
   }
   .section-label--sm .icon-circle {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2.4375rem;
+    height: 2.4375rem;
   }
   .section-label--sm .section-label__text {
-    min-height: 2.25rem;
+    min-height: 2.4375rem;
   }
   :where(.card) {
     padding: 3rem 3.75rem;
@@ -2441,7 +2437,6 @@ body {
     padding-block: 5rem;
   }
   .footer__card {
-    margin-bottom: 0;
     padding: 3rem 3.75rem;
   }
   .footer__info {
@@ -2513,6 +2508,9 @@ body {
   }
   .hero__text {
     font-size: var(--fz-h4);
+  }
+  .hero__button-word {
+    display: inline;
   }
   .hero--compact .hero__title {
     font-size: var(--fz-h1);
@@ -2907,7 +2905,19 @@ body {
     grid-template-columns: 1fr 1fr;
   }
   .offer__list {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .offer__card {
+    grid-column: span 2;
+  }
+  .offer__card:nth-child(3n+1):nth-last-child(2), .offer__card:nth-child(3n+1):nth-last-child(2) ~ .offer__card {
+    grid-column: span 3;
+  }
+  .offer__card:nth-child(3n+1):nth-last-child(4), .offer__card:nth-child(3n+1):nth-last-child(4) ~ .offer__card {
+    grid-column: span 3;
+  }
+  .offer__card:only-child {
+    grid-column: 1/-1;
   }
   .advantages__list {
     grid-template-columns: repeat(3, 1fr);
@@ -3152,6 +3162,9 @@ body {
   .footer__lang:hover {
     background-color: var(--color-orange-20);
   }
+  .request__type-text:hover {
+    background-color: var(--color-lavender);
+  }
   .request__consent-link:hover {
     color: var(--color-blue-active);
   }
@@ -3189,6 +3202,10 @@ body {
   }
   .coverage__call:hover .coverage__number {
     color: var(--color-blue);
+  }
+}@media (any-hover: hover) and (prefers-reduced-motion: no-preference) {
+  .request__submit:hover .icon {
+    transform: translateX(0.25rem);
   }
 }@media (prefers-reduced-motion: no-preference) {
   [data-att-watch] .reveal:not(.--view) {
